@@ -20,6 +20,7 @@ const Cart = () => {
     console.log(products)
     const addtoCart=(product)=>{
       setCart([...cart,product])
+      alert("product added to cart")
     }
     const deleteCart=(product)=>{
       setCart(cart.filter((item)=>item.id!==product.id))
@@ -30,8 +31,8 @@ const Cart = () => {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<><NavBar showcart={true}/><Products products={products} addtoCart={addtoCart}/></>} />
-          <Route path="view/:index" element={<><ProductDetails products={products} /></>} />
-          <Route path="cart" element={<><NavBar showcart={false}/>{cart.length>0?<AddCart cart={cart} deleteCart={deleteCart}/>:<h2>cart is empty</h2>}</>} />
+          <Route path="view/:index" element={<><NavBar showcart={true}/><ProductDetails addtoCart={addtoCart} products={products} /></>} />
+          <Route path="cart" element={<><NavBar showcart={false}/>{cart.length>0?<AddCart cart={cart} deleteCart={deleteCart}/>:<h2 style={{textAlign:"center"}}>cart is empty</h2>}</>} />
         </Routes>
       </BrowserRouter>
       
