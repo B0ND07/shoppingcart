@@ -9,14 +9,22 @@ import AddCart from './AddCart';
 const Cart = () => {
 
     const [products,setProducts]=useState([])
-    const [cart,setCart]=useState([])
+    const [cart,setCart]=useState(() => {
+      const storedCart = localStorage.getItem('cart');
+      return storedCart ? JSON.parse(storedCart) : [];
+    });
+
 
     useEffect(()=>{
         axios.get('https://fakestoreapi.com/products').then((res)=>{
             // console.log(res.data)
             setProducts(res.data)
         })
-    },[])
+        
+        localStorage.setItem('cart', JSON.stringify(cart));
+        
+    },[cart])
+
     console.log(products)
     const addtoCart=(product)=>{
       setCart([...cart,product])
